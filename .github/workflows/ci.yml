@@ -1,19 +1,19 @@
-name: APP Build and Deploy
+name: deploy app
+
 on:
   push:
     branches:
-      - master
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@master
+      - master # default branch
 
-    # - name: Build and Deploy
-    #   uses: JamesIves/github-pages-deploy-action@master
-    #   env:
-    #     ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-    #     BRANCH: gh-pages
-    #     FOLDER: build
-    #     BUILD_SCRIPT: npm install && npm run build
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install
+      - run: yarn build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.CI_TOKEN }}
+          publish_dir: ./dist
