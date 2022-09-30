@@ -6,7 +6,7 @@ const isProd = process.env.NODE_ENV === 'production';
 export default defineConfig({
   title: 'Okay',
   mode: 'site',
-  logo: !isProd
+  logo: isProd
     ? 'https://linshangchun.github.io/app/okay-logo.jpeg'
     : '/okay-logo.jpeg',
   exportStatic: {},
