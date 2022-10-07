@@ -13,7 +13,7 @@ features:
     title: 笔记本
     desc:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/d60657df-0822-4631-9d7c-e7a869c2f21c/k79dmz3q_w126_h126.png
-    title: 准备中。。。
+    title: 待开发
     desc:
-footer: See More Do More Gain More | Copyright © 2022<br />Powered by [linshangchun](https://github.com/linshangchun)
+footer: See You Again | Copyright © 2022<br />Powered by [linshangchun](https://github.com/linshangchun)
 ---

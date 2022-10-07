@@ -15,7 +15,5 @@ features:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/d60657df-0822-4631-9d7c-e7a869c2f21c/k79dmz3q_w126_h126.png
     title: Ready...
     desc:
-footer: See More Do More Gain More | Copyright © 2022<br />Powered by [linshangchun](https://github.com/linshangchun)
+footer: See You Again | Copyright © 2022<br />Powered by [linshangchun](https://github.com/linshangchun)
 ---
-
-<!-- ## Hello app! -->
