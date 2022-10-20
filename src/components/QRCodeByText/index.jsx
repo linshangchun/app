@@ -2,7 +2,7 @@ import React from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
 const QRCodeByText = ({ size, value, level, logo }) => {
-  const sizeQRCode = size || 240;
+  const sizeQRCode = size || 300;
   const sizeSettings = (sizeQRCode / 10) * 2;
   return (
     <QRCodeSVG

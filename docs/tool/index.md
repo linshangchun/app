@@ -9,7 +9,7 @@ export default () => {
   return (
     <PageHeader
       title="这里是工具箱"
-      subTitle={'查看源码：'}
+      subTitle="查看源码："
       subAction={{
         text: REPOPAGE,
         href: REPOPAGE,

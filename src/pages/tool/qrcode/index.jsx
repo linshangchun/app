@@ -1,27 +1,4 @@
-```jsx
-/**
- * inline: true
- */
-
-import React, { useEffect } from 'react';
-import { PageHeader } from '@lshch/app';
-export default () => {
-  return (
-    <PageHeader
-      title="文本转二维码"
-      subTitle={'组件来源：'}
-      subAction={{
-        text: 'https://zpao.github.io/qrcode.react/',
-        href: 'https://zpao.github.io/qrcode.react/',
-      }}
-      noScan
-    />
-  );
-};
-```
-
-```jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Layout,
   Select,
@@ -33,16 +10,16 @@ import {
   Space,
   Modal,
 } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useLocalStorageState } from 'ahooks';
-import { QRCodeByText, Descriptions } from '@lshch/app';
+import QRCodeByText from '@/components/QRCodeByText';
+import Descriptions from '@/components/Descriptions';
 
 const { Sider, Content } = Layout;
 const { Option } = Select;
 export default () => {
   const initDataSource = {
     value: HOMEPAGE,
-    size: 240,
+    size: 300,
     level: 'M',
     logo: '',
   };
@@ -74,51 +51,47 @@ export default () => {
         title: '操作提醒',
         content: '保存数据时必须填写【文本内容】',
         okText: '好的',
+        centered: true,
       });
       return;
     }
     if (!dataSource?.name) {
       Modal.confirm({
         title: '操作提醒',
-        icon: <ExclamationCircleOutlined />,
-        content: '保存数据时建议为当前二维码设置【名称|别名】',
+        content: '保存数据时建议为当前记录设置【记录名称】',
+        cancelText: '取消',
         okText: '直接保存',
         onOk: handleSave,
-        cancelText: '取消',
+        centered: true,
       });
     } else {
       handleSave();
     }
   };
   const removeDataSource = (r) => {
-    const hasData = QRCodeList.find((item) => item.value === r.value);
-    if (hasData) {
-      setQRCodeList([...QRCodeList.filter((item) => item.value !== r.value)]);
-    }
+    Modal.confirm({
+      title: '操作提醒',
+      content: `确认移除当前记录：${r.name || r.value}`,
+      okText: '确认',
+      cancelText: '取消',
+      centered: true,
+      onOk: () => {
+        const hasData = QRCodeList.find((item) => item.value === r.value);
+        if (hasData) {
+          setQRCodeList([
+            ...QRCodeList.filter((item) => item.value !== r.value),
+          ]);
+        }
+      },
+    });
   };
   const columns = [
-    {
-      key: 'name',
-      title: '名称别名',
-      width: '100px',
-      fixed: 'left',
-      render: () => {
-        return (
-          <Input
-            placeholder="便于数据记忆、存储查询等"
-            value={dataSource?.name}
-            onChange={({ target: { value } }) => {
-              setDataSource((v) => ({ ...v, name: value }));
-            }}
-            style={{ width: 260 }}
-          />
-        );
-      },
-    },
     {
       key: 'value',
       title: '文本内容',
       width: '160px',
+      fixed: 'left',
+      ellipsis: true,
       render: () => {
         return (
           <Input
@@ -127,6 +100,7 @@ export default () => {
             onChange={({ target: { value } }) => {
               setDataSource((v) => ({ ...v, value }));
             }}
+            maxLength={168}
             style={{ width: 260 }}
           />
         );
@@ -135,7 +109,7 @@ export default () => {
     {
       key: 'logo',
       title: '中心图标',
-      width: '160px',
+      width: '60px',
       render: () => {
         return (
           <Input
@@ -144,15 +118,16 @@ export default () => {
             onChange={({ target: { value } }) => {
               setDataSource((v) => ({ ...v, logo: value }));
             }}
+            maxLength={250}
             style={{ width: 260 }}
           />
         );
       },
       renderTable: (v) => {
-        return v.indexOf('http') === 0 ? (
+        return v?.indexOf('http') === 0 ? (
           <img width="28px" height="28px" src={v} />
         ) : (
-          v
+          v || '--'
         );
       },
     },
@@ -167,6 +142,8 @@ export default () => {
             onChange={(size) => {
               setDataSource((v) => ({ ...v, size }));
             }}
+            max={400}
+            min={200}
             style={{ width: 120 }}
           />
         );
@@ -190,6 +167,24 @@ export default () => {
             <Option value="Q">Q</Option>
             <Option value="H">H</Option>
           </Select>
+        );
+      },
+    },
+    {
+      key: 'name',
+      title: '记录名称',
+      width: '100px',
+      render: () => {
+        return (
+          <Input
+            placeholder="便于数据记忆、存储查询等"
+            value={dataSource?.name}
+            onChange={({ target: { value } }) => {
+              setDataSource((v) => ({ ...v, name: value }));
+            }}
+            maxLength={10}
+            style={{ width: 260 }}
+          />
         );
       },
     },
@@ -223,12 +218,12 @@ export default () => {
       key: 'action',
       title: '操作',
       fixed: 'right',
-      width: '120px',
+      width: '100px',
       render: (_, r) => {
         return (
           <Space>
             <Button type="primary" onClick={() => setDataSource(r)}>
-              预览
+              预览 & 编辑
             </Button>
             <Button onClick={() => removeDataSource(r)}>移除</Button>
             {r.value.indexOf('http') === 0 && (
@@ -249,10 +244,9 @@ export default () => {
   return (
     <>
       <Layout>
-        <Sider theme="light" width={400} style={{ padding: '0 48px' }}>
+        <Sider theme="light" width={500} style={{ padding: '0 48px' }}>
           <Divider orientation="left" plain>
-            {' '}
-            二维码效果预览图{' '}
+            <strong>二维码效果预览</strong>
           </Divider>
           <div style={{ padding: '24px 0 48px' }}>
             <QRCodeByText {...dataSource} />
@@ -267,7 +261,7 @@ export default () => {
           />
         </Content>
       </Layout>
-      {!!QRCodeList.length && (
+      {QRCodeList?.length > 0 && (
         <Table
           bordered
           title={() => '二维码历史记录：'}
@@ -281,4 +275,3 @@ export default () => {
     </>
   );
 };
-```

@@ -13,27 +13,28 @@ export default [
   {
     title: '在线工具',
     children: [
-      { title: '文本转二维码', path: gainPath('/qrcode') },
-      { title: '更多工具', path: gainPath('/other-util') },
+      { title: '文本转二维码', path: gainPath('/online/qrcode') },
+      { title: '工具导航', path: gainPath('/online/more') },
     ],
   },
   {
     title: 'npm',
+    // path: gainPath('/npm'),
     children: [
-      { title: 'yourl', path: gainPath('/yourl') },
-      { title: 'cli-item', path: gainPath('/cli-item') },
-      { title: 'robot-dd', path: gainPath('/robot-dd') },
-      { title: 'more npm', path: gainPath('/npms') },
+      { title: 'yourl', path: gainPath('/npm/yourl') },
+      { title: 'cli-item', path: gainPath('/npm/cli-item') },
+      { title: 'robot-dd', path: gainPath('/npm/robot-dd') },
+      { title: '常用|推荐', path: gainPath('/npm/more') },
     ],
   },
   {
     title: 'utils',
-    path: gainPath('/utils'),
+    // path: gainPath('/utils'),
     children: [{ title: 'log', path: gainPath('/utils/log') }],
   },
   {
     title: 'hooks',
-    path: gainPath('/hooks'),
+    // path: gainPath('/hooks'),
     children: [{ title: 'browser', path: gainPath('/hooks/browser') }],
   },
 ];
