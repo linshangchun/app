@@ -11,8 +11,8 @@ import {
   Modal,
 } from 'antd';
 import { useLocalStorageState } from 'ahooks';
-import QRCodeByText from '@/components/QRCodeByText';
-import Descriptions from '@/components/Descriptions';
+import QRCodeByText from '@lshch/app/components/QRCodeByText';
+import Descriptions from '@lshch/app/components/Descriptions';
 
 const { Sider, Content } = Layout;
 const { Option } = Select;

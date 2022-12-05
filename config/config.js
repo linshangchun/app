@@ -1,6 +1,6 @@
 import { defineConfig } from 'dumi';
 import { navs, menus } from './routes';
-import pkg from './package.json';
+import pkg from '../package.json';
 
 const isProd = process.env.NODE_ENV === 'production';
 const LOGO = 'https://linshangchun.github.io/app/okay-logo.jpeg';
@@ -17,7 +17,7 @@ export default defineConfig({
   navs,
   menus,
   alias: {
-    '@': './src',
+    '@app': '@lshch/app/src',
   },
   define: {
     LOGO,

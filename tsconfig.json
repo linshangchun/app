@@ -10,8 +10,10 @@
     "baseUrl": "./",
     "strict": true,
     "paths": {
-      "@/*": ["src/*"],
-      "@@/*": ["src/.umi/*"]
+      // "@/*": ["src/*"],
+      "@@/*": ["src/.umi/*"],
+      "@app": ["@lshch/app/src"],
+      "@utils": ["@lshch/utils/src"]
     },
     "allowSyntheticDefaultImports": true
   },
